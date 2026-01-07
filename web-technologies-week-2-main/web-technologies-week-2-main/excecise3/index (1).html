@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        :root {
+            --bg: #f0f2f5;
+            --todo: #e3f2fd;
+            --progress: #fff3e0;
+            --done: #e8f5e9;
+        }
+
+        body { font-family: sans-serif; background: var(--bg); padding: 20px; }
+        
+        .input-area { text-align: center; margin-bottom: 25px; }
+        input { padding: 10px; width: 200px; border-radius: 5px; border: 1px solid #ccc; }
+        button { padding: 10px 20px; cursor: pointer; border-radius: 5px; background: #2196f3; color: white; border: none; }
+
+        .board { display: flex; gap: 20px; justify-content: center; }
+        .column { width: 300px; min-height: 450px; border-radius: 10px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        
+        #todo { background: var(--todo); }
+        #inprogress { background: var(--progress); }
+        #completed { background: var(--done); }
+
+        .task-card {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: grab;
+            border-left: 4px solid #999;
+        }
+        
+        .task-card small { display: block; color: #666; font-size: 0.8em; margin-top: 5px; }
+        .completed-style { background: #c8e6c9 !important; border-left-color: #2e7d32 !important; }
+        .drag-hover { outline: 2px dashed #2196f3; }
+    </style>
+</head>
+<body>
+
+    <div class="input-area">
+        <input type="text" id="taskName" placeholder="New Task...">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <div class="board">
+        <div class="column" id="todo" ondrop="drop(event)" ondragover="allow(event)" ondragleave="leave(event)">
+            <h2>To Do</h2>
+        </div>
+        <div class="column" id="inprogress" ondrop="drop(event)" ondragover="allow(event)" ondragleave="leave(event)">
+            <h2>In Progress</h2>
+        </div>
+        <div class="column" id="completed" ondrop="drop(event)" ondragover="allow(event)" ondragleave="leave(event)">
+            <h2>Completed</h2>
+        </div>
+    </div>
+
+    <script>
+        function addTask() {
+            const input = document.getElementById('taskName');
+            if (!input.value) return;
+
+            const card = document.createElement('div');
+            card.id = 't-' + Date.now();
+            card.className = 'task-card';
+            card.draggable = true;
+            
+            card.ondragstart = (e) => {
+                e.dataTransfer.setData("text", e.target.id);
+            };
+
+            const date = new Date().toLocaleDateString();
+            card.innerHTML = `<strong>${input.value}</strong><small>${date}</small>`;
+
+            document.getElementById('todo').appendChild(card);
+            input.value = "";
+        }
+
+        function allow(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-hover');
+        }
+
+        function leave(e) {
+            e.currentTarget.classList.remove('drag-hover');
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            const col = e.currentTarget;
+            col.classList.remove('drag-hover');
+            
+            const id = e.dataTransfer.getData("text");
+            const card = document.getElementById(id);
+            col.appendChild(card);
+
+            if (col.id === 'completed') {
+                card.classList.add('completed-style');
+                alert("Task Completed Successfully");
+            } else {
+                card.classList.remove('completed-style');
+            }
+        }
+    </script>
+</body>
+</html>
