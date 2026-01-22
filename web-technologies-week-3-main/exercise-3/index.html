@@ -1,1 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Survey Builder</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #eef2f3;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            margin: 0;
+            min-height: 100vh;
+        }
 
+        .builder-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 520px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question-block {
+            margin-bottom: 24px;
+            padding: 16px;
+            border-left: 4px solid #3498db;
+            background: #f9f9f9;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .question-label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d9e0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .option-item {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .option-item input {
+            margin-right: 10px;
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            font-size: 0.82rem;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .invalid .error-msg {
+            display: block;
+        }
+
+        .invalid input[type="text"] {
+            border-color: #e74c3c;
+            background-color: #fff9f9;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #successMsg {
+            text-align: center;
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="builder-card">
+    <h2>User Feedback Survey</h2>
+    <p class="subtitle">Please answer the questions below. All required fields must be completed.</p>
+    
+    <form id="dynamicForm">
+        <div id="survey-container"></div>
+        
+        <button type="submit" id="submitBtn">Submit Survey</button>
+    </form>
+
+    <div id="successMsg" class="hidden">✅ Thank you! Your survey has been submitted successfully.</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
