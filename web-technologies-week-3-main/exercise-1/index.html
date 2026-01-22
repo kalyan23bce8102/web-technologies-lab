@@ -1,1 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Registration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .field-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e1e1;
+            border-radius: 6px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 48px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            cursor: pointer;
+            color: #757575;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-password:hover,
+        .toggle-password:focus {
+            color: #212121;
+        }
+
+        .toggle-password svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .invalid {
+            border-color: #ff4d4d !important;
+            background-color: #fff9f9;
+        }
+        .valid {
+            border-color: #2ecc71 !important;
+        }
+
+        .error-text {
+            color: #ff4d4d;
+            font-size: 0.78rem;
+            display: block;
+            margin-top: 5px;
+            min-height: 1.2em;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 13px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1.05rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        button[type="submit"]:hover:not(:disabled) {
+            background-color: #357abd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <header style="margin-bottom: 32px; text-align: center;">
+    <h1 style="font-size: 2.4rem; font-weight: 700; color: #0d47a1; margin: 0;">
+        User Registration
+    </h1>
+    <p style="color: #555; margin: 8px 0 0; font-size: 1.05rem;">
+        Create your account
+    </p>
+</header>
+    <form id="regForm">
+
+        <div class="field-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Full Name" required>
+        </div>
+
+        <div class="field-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <small class="error-text" id="emailError"></small>
+        </div>
+
+        <div class="field-group">
+            <label for="role">Select Your Role</label>
+            <select id="role">
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+
+        <div class="field-group">
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" placeholder="Password">
+                <button type="button" class="toggle-password" id="togglePassword">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
+                </button>
+            </div>
+            <small class="error-text" id="passwordFeedback"></small>
+        </div>
+
+        <div class="field-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password">
+                <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" placeholder="Age">
+            <small class="error-text" id="ageError"></small>
+        </div>
+
+        <div id="skillsSection" class="field-group">
+            <label for="skills">Skills (comma separated)</label>
+            <input type="text" id="skills" placeholder="Skills (comma separated)">
+        </div>
+
+        <button type="submit" id="submitBtn" disabled>Complete Registration</button>
+    </form>
+</div>
+
+<script>
+const validationRules = {
+    Student: { minAge: 13,  passRegex: /.{6,}/,          passMsg: "Minimum 6 characters",      showSkills: true  },
+    Teacher: { minAge: 21,  passRegex: /.{8,}/,          passMsg: "Minimum 8 characters",      showSkills: true  },
+    Admin:   { minAge: 18,  passRegex: /^(?=.*[A-Z])(?=.*\d).{10,}$/, passMsg: "Min 10 chars, 1 uppercase & 1 number", showSkills: false }
+};
+
+const form  = document.getElementById('regForm');
+const role  = document.getElementById('role');
+const submitBtn = document.getElementById('submitBtn');
+
+const fields = {
+    name:           document.getElementById('name'),
+    email:          document.getElementById('email'),
+    password:       document.getElementById('password'),
+    confirmPassword:document.getElementById('confirmPassword'),
+    age:            document.getElementById('age'),
+    skills:         document.getElementById('skills')
+};
+
+const feedback = {
+    email:    document.getElementById('emailError'),
+    password: document.getElementById('passwordFeedback'),
+    age:      document.getElementById('ageError')
+};
+
+const togglePasswordBtn = document.getElementById('togglePassword');
+const toggleConfirmBtn  = document.getElementById('toggleConfirmPassword');
+
+const eyeOpenSVG  = `<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`;
+const eyeClosedSVG = `<svg viewBox="0 0 24 24"><path d="M12 7c2.76 0 5 2.24 5 5 0 .74-.17 1.43-.46 2.06l3.01 3.01C21.08 15.8 22 14 22 12c0-5.52-5.5-9-11-9-1.84 0-3.56.39-5.12 1.08l2.95 2.95C10.57 7.17 11.26 7 12 7zM2 4.27l2.28 2.28C3.06 7.83 2 9.8 2 12c0 5.52 5.5 9 11 9 1.79 0 3.47-.4 5.01-1.12l2.72 2.72 1.41-1.41L3.41 2.86 2 4.27zM7.53 9.8l1.55 1.55C9.03 11.6 9 11.8 9 12c0 1.66 1.34 3 3 3 .2 0 .4-.03.6-.08l1.55 1.55C13.42 16.85 12.74 17 12 17c-2.76 0-5-2.24-5-5 0-.74.15-1.42.53-2.2z"/></svg>`;
+
+togglePasswordBtn.innerHTML = eyeOpenSVG;
+toggleConfirmBtn.innerHTML  = eyeOpenSVG;
+
+togglePasswordBtn.addEventListener('click', () => {
+    const input = fields.password;
+    const isHidden = input.type === 'password';
+    input.type = isHidden ? 'text' : 'password';
+    togglePasswordBtn.innerHTML = isHidden ? eyeClosedSVG : eyeOpenSVG;
+});
+
+toggleConfirmBtn.addEventListener('click', () => {
+    const input = fields.confirmPassword;
+    const isHidden = input.type === 'password';
+    input.type = isHidden ? 'text' : 'password';
+    toggleConfirmBtn.innerHTML = isHidden ? eyeClosedSVG : eyeOpenSVG;
+});
+
+function validateForm() {
+    const roleValue = role.value;
+    const config = validationRules[roleValue];
+
+    const nameVal    = fields.name.value.trim();
+    const emailVal   = fields.email.value.trim();
+    const passVal    = fields.password.value;
+    const confirmVal = fields.confirmPassword.value;
+    const ageVal     = fields.age.value.trim();
+    const skillsVal  = fields.skills.value.trim();
+
+    const isNameValid     = nameVal.length >= 2;
+    const isEmailValid    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+    const isPasswordValid = config.passRegex.test(passVal);
+    const passwordsMatch  = passVal === confirmVal && passVal !== "";
+
+    let isAgeValid = false;
+    if (ageVal !== "" && !isNaN(ageVal)) {
+        const ageNum = Number(ageVal);
+        isAgeValid = Number.isInteger(ageNum) && ageNum >= config.minAge && ageNum <= 120;
+    }
+
+    const isSkillsValid = !config.showSkills || skillsVal.length > 0;
+
+    document.getElementById('skillsSection').style.display = config.showSkills ? 'block' : 'none';
+
+    feedback.email.innerText    = isEmailValid || emailVal === "" ? "" : "Please enter a valid email";
+    feedback.password.innerText = passVal === "" ? "" : (isPasswordValid ? "" : config.passMsg);
+    feedback.age.innerText      = (ageVal === "" || isAgeValid) ? "" : `Must be at least ${config.minAge}`;
+
+    applyStatus(fields.name,           isNameValid);
+    applyStatus(fields.email,          isEmailValid);
+    applyStatus(fields.password,       isPasswordValid);
+    applyStatus(fields.confirmPassword, passwordsMatch && passVal !== "");
+    applyStatus(fields.age,            isAgeValid && ageVal !== "");
+
+    const allValid = isNameValid && isEmailValid && isPasswordValid && passwordsMatch && isAgeValid && isSkillsValid;
+    submitBtn.disabled = !allValid;
+}
+
+function applyStatus(element, isValid) {
+    element.classList.remove('valid', 'invalid');
+    if (element.value.trim() === "") return;
+    element.classList.add(isValid ? 'valid' : 'invalid');
+}
+
+form.addEventListener('input', validateForm);
+form.addEventListener('change', validateForm);
+role.addEventListener('change', validateForm);
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!submitBtn.disabled) {
+        alert("Registration successful!\nRole: " + role.value);
+        form.reset();
+        submitBtn.disabled = true;
+        // Reset visibility icons
+        fields.password.type = 'password';
+        fields.confirmPassword.type = 'password';
+        togglePasswordBtn.innerHTML = eyeOpenSVG;
+        toggleConfirmBtn.innerHTML  = eyeOpenSVG;
+        validateForm();
+    }
+});
+
+validateForm();
+</script>
+
+</body>
+</html>
