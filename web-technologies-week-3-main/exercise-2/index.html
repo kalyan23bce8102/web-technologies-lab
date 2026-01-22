@@ -1,1 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Shopping Cart</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+        }
 
+        .shop-container {
+            background: white;
+            width: 450px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .product-item span {
+            font-weight: 500;
+        }
+
+        hr {
+            margin: 25px 0;
+            border: none;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-section {
+            margin-top: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .cart-item input[type="number"] {
+            width: 60px;
+            padding: 6px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .remove-btn {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .remove-btn:hover {
+            background: #e63939;
+        }
+
+        .coupon-section {
+            margin: 20px 0;
+            display: flex;
+            gap: 8px;
+        }
+
+        .coupon-section input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .coupon-section input.invalid {
+            border-color: #ff4d4d;
+            background-color: #fff9f9;
+        }
+
+        button {
+            cursor: pointer;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background: #357abd;
+        }
+
+        .summary {
+            margin-top: 20px;
+            border-top: 2px solid #333;
+            padding-top: 15px;
+        }
+
+        .summary p {
+            margin: 8px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #2ecc71;
+            margin-top: 12px !important;
+        }
+
+        .coupon-line {
+            color: #e67e22;
+            font-style: italic;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #777;
+            padding: 30px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="shop-container">
+    <h2>Smart Shop</h2>
+    
+    <div class="product-list">
+        <div class="product-item">
+            <span>Laptop ($1000) [Electronics]</span>
+            <button onclick="addToCart('Laptop', 1000, 'Electronics')">Add to Cart</button>
+        </div>
+        <div class="product-item">
+            <span>T-Shirt ($20) [Clothing]</span>
+            <button onclick="addToCart('T-Shirt', 20, 'Clothing')">Add to Cart</button>
+        </div>
+        <div class="product-item">
+            <span>Apple ($2) [Groceries]</span>
+            <button onclick="addToCart('Apple', 2, 'Groceries')">Add to Cart</button>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="cart-section">
+        <h3>Your Cart</h3>
+        <div id="cartItems"></div>
+        
+        <div class="coupon-section">
+            <input type="text" id="couponInput" placeholder="Enter Coupon (e.g. SAVE10)">
+            <button onclick="applyCoupon()">Apply</button>
+        </div>
+
+        <div class="summary">
+            <p>Subtotal: $<span id="subtotal">0.00</span></p>
+            <p>Discount: -$<span id="discount">0.00</span></p>
+            <p class="total">Total: $<span id="total">0.00</span></p>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
