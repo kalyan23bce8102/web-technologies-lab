@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book>
+        <id>B001</id>
+        <title>Introduction to Algorithms</title>
+        <author>Thomas H. Cormen</author>
+        <status>Available</status>
+    </book>
+    <book>
+        <id>B002</id>
+        <title>Clean Code</title>
+        <author>Robert C. Martin</author>
+        <status>Borrowed</status>
+    </book>
+    <book>
+        <id>B003</id>
+        <title>The Pragmatic Programmer</title>
+        <author>Andrew Hunt</author>
+        <status>Available</status>
+    </book>
+</library>
