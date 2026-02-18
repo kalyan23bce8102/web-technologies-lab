@@ -1,0 +1,16 @@
+{
+  "students": [
+    {
+      "id": "23BCE20191",
+      "name": "Harsha",
+      "department": "CSE",
+      "marks": 85
+    },
+    {
+      "id": "23BCE4545",
+      "name": "Rohith",
+      "department": "ECE",
+      "marks": 99
+    }
+  ]
+}
