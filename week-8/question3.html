@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Enrollment</title>
+</head>
+<body>
+
+<h2>Course Registration System</h2>
+<pre id="output"></pre>
+
+<script>
+// Class definition
+class Course {
+    constructor(courseName, instructor) {
+        this.courseName = courseName;
+        this.instructor = instructor;
+    }
+
+    displayCourse() {
+        return `Course: ${this.courseName}\nInstructor: ${this.instructor}`;
+    }
+}
+
+// Create object
+let course1 = new Course("Data Structures", "Prof. Reddy");
+
+let result = course1.displayCourse() + "\n\n";
+
+// Promise for enrollment
+function enrollCourse(seatsAvailable) {
+    return new Promise((resolve, reject) => {
+        if (seatsAvailable)
+            resolve("Enrollment Successful");
+        else
+            reject("No Seats Available");
+    });
+}
+
+// Change value here to test
+let seatsAvailable = false;
+
+enrollCourse(seatsAvailable)
+.then(msg => {
+    result += msg;
+    document.getElementById("output").textContent = result;
+    console.log(msg);
+})
+.catch(err => {
+    result += err;
+    document.getElementById("output").textContent = result;
+    console.log(err);
+});
+
+// Console display
+console.log(course1.displayCourse());
+</script>
+
+</body>
+</html>

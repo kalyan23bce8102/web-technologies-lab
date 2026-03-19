@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Result</title>
+</head>
+<body>
+
+<h2>Student Result Report</h2>
+
+<p id="output"></p>
+
+<script>
+let studentName = "Rahul";
+let mark1 = 72;
+let mark2 = 81;
+let mark3 = 69;
+
+function calculateAverage(m1, m2, m3) {
+    return (m1 + m2 + m3) / 3;
+}
+
+let total = mark1 + mark2 + mark3;
+let average = calculateAverage(mark1, mark2, mark3).toFixed(2);
+
+document.getElementById("output").innerHTML =
+    `Student Name: ${studentName} <br>
+     Marks: ${mark1}, ${mark2}, ${mark3} <br>
+     Total Marks: ${total} <br>
+     Average Marks: ${average}`;
+</script>
+
+</body>
+</html>

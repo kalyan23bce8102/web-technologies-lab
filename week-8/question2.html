@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+</head>
+<body>
+
+<h2>Student Information</h2>
+<pre id="output"></pre>
+
+<script>
+const student = {
+    id: 205,
+    name: "Anjali",
+    department: "ECE",
+    marks: 78
+};
+
+// Destructuring
+const { id, name, department, marks } = student;
+
+// Grade calculation
+function getGrade(marks) {
+    if (marks >= 90) return "A";
+    else if (marks >= 75) return "B";
+    else if (marks >= 50) return "C";
+    else return "D";
+}
+
+let grade = getGrade(marks);
+
+// Updated object using spread
+const updatedStudent = {
+    ...student,
+    grade: grade
+};
+
+// Output formatting
+let result = `ID: ${id}
+Name: ${name}
+Department: ${department}
+Marks: ${marks}
+Grade: ${grade}
+
+Updated Student Object:
+${JSON.stringify(updatedStudent, null, 2)}`;
+
+document.getElementById("output").textContent = result;
+
+// Console output
+console.log("Student Details:", id, name, department, marks);
+console.log("Updated Object:", updatedStudent);
+</script>
+
+</body>
+</html>
